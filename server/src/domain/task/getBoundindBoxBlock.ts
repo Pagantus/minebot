@@ -1,6 +1,7 @@
 import { Vec3 } from 'vec3';
 import { RangePosition } from '../types';
 import { Task } from './base';
+import { BaseTaskError } from './error';
 
 class GetBoundingBoxBlockTask extends Task<Vec3, RangePosition> {
   protected async start(point: Vec3): Promise<RangePosition> {
@@ -15,10 +16,16 @@ class GetBoundingBoxBlockTask extends Task<Vec3, RangePosition> {
     });
 
     if (!block) {
-      throw '';
+      throw new GetBoundingBoxBlockTaskError('Блок не найден');
     }
 
     return { start: block.position, end: point };
+  }
+}
+
+class GetBoundingBoxBlockTaskError extends BaseTaskError {
+  constructor(message: string) {
+    super('GET BOUNDING BOX BLOCK', message);
   }
 }
 

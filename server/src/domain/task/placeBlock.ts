@@ -15,7 +15,7 @@ class PlaceBlockTask extends Task<PlaceBlockInput, void> {
     this.itemTypes = blockNames.map((name) => {
       const item = bot.registry.itemsByName[name];
       if (!item) {
-        throw '';
+        throw new PlaceBlockTaskError('Предмет с таким названием не найден');
       }
       return item.id;
     });

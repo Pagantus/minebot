@@ -1,6 +1,7 @@
 import { Task } from './base';
 import { Vec3 } from 'vec3';
 import { TBot } from '../bot/base';
+import { BaseTaskError } from './error';
 
 class FindBlockTask extends Task<Vec3, Vec3> {
   blockType: number;
@@ -21,10 +22,16 @@ class FindBlockTask extends Task<Vec3, Vec3> {
     });
 
     if (!block) {
-      throw '';
+      throw new FindBlockTaskError('Блок не найден');
     }
 
     return block.position;
+  }
+}
+
+class FindBlockTaskError extends BaseTaskError {
+  constructor(message: string) {
+    super('FIND BLOCK', message);
   }
 }
 
